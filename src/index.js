@@ -12,7 +12,7 @@ import { createStore } from 'redux';
 import { Provider, connect } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { setUser } from 'actions';
+import { setUser, clearUser } from 'actions';
 
 import App from 'components/App';
 import Login from 'components/Auth/Login';
@@ -31,6 +31,9 @@ class Root extends React.Component {
 				// console.log(user);
 				this.props.setUser(user);
 				this.props.history.push('/');
+			} else {
+				this.props.history.push('/login');
+				this.props.clearUser();
 			}
 		});
 	}
@@ -54,7 +57,7 @@ const mapStateToProps = state => ({
 const RootWithAuth = withRouter(
 	connect(
 		mapStateToProps,
-		{ setUser }
+		{ setUser, clearUser }
 	)(Root)
 );
 
